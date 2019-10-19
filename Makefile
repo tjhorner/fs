@@ -11,21 +11,21 @@ ensure-dist-dir:
 
 dist-win: ensure-dist-dir
 	# Build for Windows x64
-	GOOS=windows GOARCH=amd64 $(GOBUILD) -o dist/$(PROJECT_NAME)-windows-amd64.exe *.go
+	GOOS=windows GOARCH=amd64 $(GOBUILD) -o dist/$(PROJECT_NAME)-windows-amd64.exe .
 
 dist-macos: ensure-dist-dir
 	# Build for macOS x64
-	GOOS=darwin GOARCH=amd64 $(GOBUILD) -o dist/$(PROJECT_NAME)-darwin-amd64 *.go
+	GOOS=darwin GOARCH=amd64 $(GOBUILD) -o dist/$(PROJECT_NAME)-darwin-amd64 .
 
 dist-linux: ensure-dist-dir
 	# Build for Linux x64
-	GOOS=linux GOARCH=amd64 $(GOBUILD) -o dist/$(PROJECT_NAME)-linux-amd64 *.go
+	GOOS=linux GOARCH=amd64 $(GOBUILD) -o dist/$(PROJECT_NAME)-linux-amd64 .
 
 dist: dist-win dist-macos dist-linux
 
 build:
 	@- mkdir -p bin
-	$(GOBUILD) -o bin/$(PROJECT_NAME) *.go
+	$(GOBUILD) -o bin/$(PROJECT_NAME) .
 	@- chmod +x bin/$(PROJECT_NAME)
 
 install: build
@@ -37,4 +37,4 @@ uninstall:
 	rm $(INSTALLPATH)/$(PROJECT_NAME)
 
 run:
-	@- go run *.go
+	@- go run .
