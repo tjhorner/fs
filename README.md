@@ -37,6 +37,12 @@ https://horner.tj/a2N95R
 
 $ neofetch --stdout | fs --name neofetch.txt
 https://horner.tj/UsaD6H
+
+$ zip -r - . | fs --name test.zip
+  adding: file3.txt (deflated -99%)
+  adding: file1.txt (deflated -3%)
+  adding: file2.jpg (deflated 1%)
+https://horner.tj/Edz0Th
 ```
 
 ## License
