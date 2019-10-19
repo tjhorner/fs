@@ -12,7 +12,7 @@ It's meant to be dead-simple. It will read the config file from `$HOME/.config/f
 
 Here is a sample `config.json`:
 
-```json
+```javascript
 {
   "projectId": "the-bin-256320", // GCP project ID
   "bucketName": "fs.horner.tj", // GCS bucket name
