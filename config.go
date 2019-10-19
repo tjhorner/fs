@@ -13,6 +13,7 @@ type config struct {
 	ProjectID    string         `json:"projectId"`
 	BucketName   string         `json:"bucketName"`
 	Host         string         `json:"host"`
+	Shorten      bool           `json:"shorten"`
 	ShortyConfig *shorty.Config `json:"shorty"`
 }
 
@@ -21,6 +22,7 @@ func newConfig() *config {
 		ProjectID:  "",
 		BucketName: "",
 		Host:       "",
+		Shorten:    false,
 		ShortyConfig: &shorty.Config{
 			BaseURL: "",
 		},

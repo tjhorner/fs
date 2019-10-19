@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
+	"net/url"
 	"os"
 	"path"
 	"time"
@@ -86,15 +87,18 @@ func main() {
 		oops(err)
 	}
 
-	fqURL := fmt.Sprintf("%s/%s", globalConfig.Host, obj.ObjectName())
+	fqURL, err := url.Parse(fmt.Sprintf("%s/%s", globalConfig.Host, obj.ObjectName()))
+	if err != nil {
+		oops(err)
+	}
 
-	if shorten {
+	if globalConfig.Shorten || shorten {
 		if verbose {
 			fmt.Println("Shortening...")
 		}
-		short, err := shorty.Shorten(fqURL, globalConfig.ShortyConfig)
+		short, err := shorty.Shorten(fqURL.String(), globalConfig.ShortyConfig)
 		if err != nil {
-			fmt.Printf("Failed to shorten. Long URL: %s\n", fqURL)
+			fmt.Printf("Failed to shorten (%v). Long URL: %s\n", err, fqURL.String())
 			return
 		}
 
@@ -130,7 +134,7 @@ func upload(bucket *storage.BucketHandle, file *os.File, name string) (*storage.
 
 func newObject(bucket *storage.BucketHandle, name string) *storage.ObjectHandle {
 	now := time.Now()
-	path := fmt.Sprintf("%d/%d/%d/%d-%s", now.Year(), now.Month(), now.Day(), now.Unix(), name)
+	path := fmt.Sprintf("%d/%d/%d/%d_%s", now.Year(), now.Month(), now.Day(), now.Unix(), name)
 
 	obj := bucket.Object(path)
 	return obj
